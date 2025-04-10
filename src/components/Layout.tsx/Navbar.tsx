@@ -9,7 +9,6 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
   return (
     <div className="w-full border-b border-[#C8CBD9] py-4 px-4 sm:px-6 md:px-10 flex items-center justify-between">
-      {/* Hamburger for mobile */}
       <button
         className="md:hidden text-2xl mr-4"
         onClick={toggleSidebar}
@@ -18,7 +17,6 @@ const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
         <HiMenu />
       </button>
 
-      {/* Search */}
       <div className="flex-1 max-w-xs bg-[#F5F4F2] rounded-3xl relative h-[32px] ml-2">
         <input
           type="text"

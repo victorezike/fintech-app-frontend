@@ -1,29 +1,3 @@
-// // src/App.tsx
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import { AuthProvider } from './context/AuthContext';
-// // import ProtectedRoute from './components/ProtectedRoute';
-// import Register from './pages/auth/register';
-// import Wallet from './pages/dashboard/Wallet';
-// import Login from './pages/auth/login';
-
-// const App = () => {
-//   return (
-//     <AuthProvider>
-//       <Router>
-//         <Routes>
-//           <Route path="/" element={<Register />} />
-//           <Route path="/login" element={<Login />} />
-//           <Route path="/dashboard/wallet" element={<Wallet />}/>
-//         </Routes>
-//       </Router>
-//     </AuthProvider>
-//   );
-// };
-
-// export default App;
-
-
-// src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';

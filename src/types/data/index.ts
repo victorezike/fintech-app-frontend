@@ -4,7 +4,7 @@ export type MenuItemType = {
 };
 export type TransactionType = {
   transactionId: string;
-  transactionType: string; // 👈 Strict union type
+  transactionType: string; 
   amount: string;
   status: string;
   date: string;

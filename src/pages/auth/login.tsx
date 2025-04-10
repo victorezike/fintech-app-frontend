@@ -18,53 +18,49 @@ const LoginSchema = Yup.object().shape({
 
 const Login: React.FC = () => {
   const auth = useAuth();
-  const { login, token } = auth; 
+  const { login, token } = auth;
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="w-screen h-screen flex">
-      <section className="md:w-[30%] border-4 bg-[#0C110D] md:p-16 md:relative md:flex md:flex-col md:justify-end md:items-start md:gap-4">
+    <div className="flex flex-col md:flex-row w-full h-full min-h-screen">
+      <section className="relative w-full md:w-[40%] bg-[#0C110D] p-6 md:p-16 flex flex-col justify-end gap-6 text-white">
         <img
           src={authImage}
-          className="w-full h-full absolute top-0 left-0"
+          className="absolute inset-0 object-cover w-full h-full opacity-20"
           alt=""
         />
-        <img src={logo} alt="" />
-        <h1 className="text-white font-semibold md:text-[30px]">
+        <img src={logo} alt="Beam Logo" className="w-28 z-10" />
+        <h1 className="z-10 font-semibold text-2xl md:text-[30px] leading-tight">
           Unlock High Returns with Collateralized Equity Asset
         </h1>
-        <ul className="mt-6 flex flex-col gap-4">
+        <ul className="z-10 flex flex-col gap-4">
           <li className="flex items-center gap-2">
             <img src={Collateralized} alt="Collateralized" />
-            <p className="font-light md:text-sm text-white">Collateralized</p>
+            <p className="text-sm">Collateralized</p>
           </li>
           <li className="flex items-center gap-2">
             <img src={Secured} alt="Secured" />
-            <p className="font-light md:text-sm text-white">Secured</p>
+            <p className="text-sm">Secured</p>
           </li>
           <li className="flex items-center gap-2">
-            <img src={Licensed} alt="Licensed" />
-            <p className="font-light md:text-sm text-white">
-              Licensed & Regulated
-            </p>
+            <img src={Licensed} alt="Licensed & Regulated" />
+            <p className="text-sm">Licensed & Regulated</p>
           </li>
         </ul>
       </section>
 
-      <section className="md:w-[70%] md:px-28 my-28">
-        <div className="max-w-[450px] flex flex-col gap-4">
-          <h1 className="font-semibold text-4xl text-[#0D0D0C]">
+      <section className="w-full md:w-[60%] px-6 md:px-28 py-12 md:py-28">
+        <div className="max-w-[450px] mx-auto flex flex-col gap-4">
+          <h1 className="font-semibold text-2xl md:text-4xl text-[#0D0D0C]">
             Sign in to Beam.
           </h1>
-          <h3 className="text-[#474D66]">
+          <p className="text-[#474D66] text-sm md:text-base">
             Please sign in with your assigned login details
-          </h3>
+          </p>
 
-          {error && (
-            <div className="text-red-500 text-sm mt-2">{error}</div>
-          )}
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
 
           <Formik
             initialValues={{ email: '', password: '' }}
@@ -77,30 +73,18 @@ const Login: React.FC = () => {
                   email: values.email,
                   password: values.password,
                 };
-                console.log('Login data being sent:', loginData);
                 if (typeof login !== 'function') {
                   throw new Error('Login function is not available in AuthContext');
                 }
-                // await login(loginData);
-                // console.log(await login(loginData));
-                // const token = await login(loginData);
-                // if (token.access_token) {
-                //   navigate('/dashboard/wallet');
-                // }
-                 // Call login once and store the result
+
                 const response = await login(loginData);
-                
-                // Check if we got a valid token
+
                 if (response?.access_token) {
                   navigate('/dashboard/wallet', { replace: true });
                 } else {
                   throw new Error('No access token received');
                 }
-
-                // navigate("/login")
-
               } catch (err: any) {
-                console.error('Login error:', err);
                 setError(
                   err.response?.data?.message ||
                     err.message ||
@@ -113,7 +97,7 @@ const Login: React.FC = () => {
             }}
           >
             {({ isSubmitting }) => (
-              <Form className="mt-5">
+              <Form className="mt-5 flex flex-col gap-4">
                 <div>
                   <Field
                     name="email"
@@ -142,15 +126,13 @@ const Login: React.FC = () => {
                     className="text-red-500 text-sm mt-1"
                   />
                 </div>
-                <div className="w-full flex justify-end relative">
-                  <h3 className="text-[#595957] text-sm absolute -top-3.5 cursor-pointer">
-                    Forgot password?
-                  </h3>
+                <div className="flex justify-end text-sm text-[#595957]">
+                  <span className="cursor-pointer hover:underline">Forgot password?</span>
                 </div>
 
                 <button
                   type="submit"
-                  className="cursor-pointer bg-[#0D0D0C] p-3 rounded-[100px] text-white font-bold mt-5 w-full"
+                  className="bg-[#0D0D0C] p-3 rounded-full text-white font-bold mt-2 w-full"
                   disabled={isSubmitting || loading}
                 >
                   {loading ? 'Logging in...' : 'Log in'}

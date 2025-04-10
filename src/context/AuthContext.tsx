@@ -2,11 +2,10 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { AuthContextType, LoginRequest, RegisterRequest, User } from '../types';
 import { login, register } from '../services/api';
 
-// Extend the context value to include everything needed
 interface AuthContextValue extends AuthContextType {
   user: User | null;
   updateBalance: (newBalance: number) => void;
-  isAuthenticated: boolean; // Add isAuthenticated
+  isAuthenticated: boolean; 
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -28,7 +27,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setToken(response.access_token);
     setUser(response.user);
     localStorage.setItem('token', response.access_token);
-    return response; // Return response for consistency
+    return response;
   };
 
   const handleLogout = () => {
@@ -43,7 +42,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
-  // Derive isAuthenticated from token presence
   const isAuthenticated = !!token;
 
   const contextValue: AuthContextValue = {
@@ -53,7 +51,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     register: handleRegister,
     logout: handleLogout,
     updateBalance,
-    isAuthenticated, // Include isAuthenticated
+    isAuthenticated, 
   };
 
   return (

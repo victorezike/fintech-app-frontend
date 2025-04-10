@@ -17,7 +17,6 @@ const api = axios.create({
   },
 });
 
-// Request Interceptor
 api.interceptors.request.use((config) => {
   const token = Cookies.get("access_token");
   console.log(token)
@@ -25,7 +24,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Response Interceptor
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -36,8 +34,6 @@ api.interceptors.response.use(
         const { data } = await axios.post<{ token: string }>("/api/auth/refresh", {}, { withCredentials: true });
 
         Cookies.set("access_token", data.token, { expires: 7 });
-        // useAuthStore.getState().set({ token: data.token });
-
         return api(originalRequest);
       } catch (err) {
         useAuthStore.getState().logout();

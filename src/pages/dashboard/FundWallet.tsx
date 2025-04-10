@@ -1,4 +1,3 @@
-// src/pages/dashboard/FundWallet.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
